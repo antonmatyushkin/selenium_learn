@@ -7,7 +7,10 @@ import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.opera.OperaDriver;
 
 public class LoginPhp4dvd {
   private WebDriver driver;
@@ -17,7 +20,7 @@ public class LoginPhp4dvd {
 
   @Before
   public void setUp() throws Exception {
-    driver = new FirefoxDriver();
+	driver = new ChromeDriver();
     baseUrl = "http://localhost";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
@@ -32,6 +35,7 @@ public class LoginPhp4dvd {
     driver.findElement(By.name("submit")).click();
     driver.findElement(By.linkText("Log out")).click();
     assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to log out[\\s\\S]$"));
+//    driver.switchTo().alert().accept();
   }
 
   @After
