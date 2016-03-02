@@ -1,36 +1,48 @@
 package com.example.tests;
 
-import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
+// import org.openqa.selenium.ie.InternetExplorerDriver;
+// import org.openqa.selenium.chrome.ChromeDriver;
+// import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.support.ui.Select;
-//import com.example.tests.GeneralMethods;
 
-public class Add_new_film {
+public class Login {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
-  @Before
+  @BeforeClass
   public void setUp() throws Exception {
-    driver = new FirefoxDriver();
+	driver = new FirefoxDriver();
     baseUrl = "http://localhost";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
-  public void testAddNewFilm() throws Exception {
-	  StartApplication();
-	  driver.findElement(By.id("username")).clear();
-	  driver.findElement(By.id("username")).sendKeys("admin");
-	  driver.findElement(By.name("password")).clear();
-	  driver.findElement(By.name("password")).sendKeys("admin");
-	  driver.findElement(By.name("submit")).click();
+  public void login() {
+    goToMainPage();
+    loginAs("admin", "admin");
+    logout();
+  }
+  
+  @Test
+  public void addNewUser() {
+	goToMainPage();
+	loginAs("admin", "admin");
+    goToUserManagmentPage();
+    addNewUser("tester", "test@test.ru", "123456");
+    logout();
+  }
+  
+  @Test
+  public void addNewFilm() {
+	  goToMainPage();
+	  loginAs("admin", "admin");
 	  driver.findElement(By.cssSelector("img[alt=\"Add movie\"]")).click();
 	  driver.findElement(By.name("name")).clear();
 	  driver.findElement(By.name("name")).sendKeys("Test");
@@ -45,13 +57,44 @@ public class Add_new_film {
 	  driver.findElement(By.id("cover")).clear();
 	  driver.findElement(By.id("cover")).sendKeys("C:\\Users\\Lenovo\\Desktop\\test.jpg");
 	  driver.findElement(By.id("submit")).click();
+	  logout();
   }
 
-public void StartApplication() {
-	driver.get(baseUrl + "/php4dvd/");
+  private void goToMainPage() {
+		driver.get(baseUrl + "/php4dvd/");
+  }
+  
+  private void loginAs(String username, String password) {
+	driver.findElement(By.id("username")).clear();
+    driver.findElement(By.id("username")).sendKeys(username);
+    driver.findElement(By.name("password")).clear();
+    driver.findElement(By.name("password")).sendKeys(password);
+    driver.findElement(By.name("submit")).click();
+  }
+
+  public void addNewUser(String username, String email, String password) {
+	  driver.findElement(By.id("username")).clear();
+	  driver.findElement(By.id("username")).sendKeys(username);
+	  driver.findElement(By.name("email")).clear();
+	  driver.findElement(By.name("email")).sendKeys(email);
+	  driver.findElement(By.id("password")).clear();
+	  driver.findElement(By.id("password")).sendKeys(password);
+	  driver.findElement(By.id("password2")).clear();
+	  driver.findElement(By.id("password2")).sendKeys(password);
+	  new Select(driver.findElement(By.name("permission"))).selectByVisibleText("Editor");
+	  driver.findElement(By.name("submit")).click();
 }
 
-  @After
+  public void goToUserManagmentPage() {
+	  driver.findElement(By.linkText("User management")).click();
+}
+  
+  public void logout() {
+	driver.findElement(By.linkText("Log out")).click();
+	driver.switchTo().alert().accept();
+  }
+
+  @AfterClass
   public void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
