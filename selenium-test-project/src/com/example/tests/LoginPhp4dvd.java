@@ -33,14 +33,10 @@ public class LoginPhp4dvd {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys("admin");
     driver.findElement(By.name("submit")).click();
-    LogOut();
+    driver.findElement(By.linkText("Log out")).click();
     assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to log out[\\s\\S]$"));
 //    driver.switchTo().alert().accept();
   }
-
-public void LogOut() {
-	driver.findElement(By.linkText("Log out")).click();
-}
 
   @After
   public void tearDown() throws Exception {

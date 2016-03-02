@@ -8,7 +8,6 @@ import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
-//import com.example.tests.GeneralMethods;
 
 public class Add_new_film {
   private WebDriver driver;
@@ -25,7 +24,7 @@ public class Add_new_film {
 
   @Test
   public void testAddNewFilm() throws Exception {
-	  StartApplication();
+	  driver.get(baseUrl + "/php4dvd/");
 	  driver.findElement(By.id("username")).clear();
 	  driver.findElement(By.id("username")).sendKeys("admin");
 	  driver.findElement(By.name("password")).clear();
@@ -46,10 +45,6 @@ public class Add_new_film {
 	  driver.findElement(By.id("cover")).sendKeys("C:\\Users\\Lenovo\\Desktop\\test.jpg");
 	  driver.findElement(By.id("submit")).click();
   }
-
-public void StartApplication() {
-	driver.get(baseUrl + "/php4dvd/");
-}
 
   @After
   public void tearDown() throws Exception {
