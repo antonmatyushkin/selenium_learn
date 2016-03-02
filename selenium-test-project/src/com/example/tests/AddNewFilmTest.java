@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class LoginTest {
+public class AddNewFilmTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -21,22 +21,6 @@ public class LoginTest {
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
-  @Test
-  public void loginTest() {
-    goToMainPage();
-    loginAs("admin", "admin");
-    logout();
-  }
-  
-  @Test
-  public void addNewUserTest() {
-	goToMainPage();
-	loginAs("admin", "admin");
-    goToUserManagmentPage();
-    addNewUser("tester", "test@test.ru", "123456");
-    logout();
-  }
-  
   @Test
   public void addNewFilmTest() {
 	  goToMainPage();

@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
-public class LoginTest {
+public class AddNewUserTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -22,13 +22,6 @@ public class LoginTest {
   }
 
   @Test
-  public void loginTest() {
-    goToMainPage();
-    loginAs("admin", "admin");
-    logout();
-  }
-  
-  @Test
   public void addNewUserTest() {
 	goToMainPage();
 	loginAs("admin", "admin");
@@ -37,27 +30,6 @@ public class LoginTest {
     logout();
   }
   
-  @Test
-  public void addNewFilmTest() {
-	  goToMainPage();
-	  loginAs("admin", "admin");
-	  driver.findElement(By.cssSelector("img[alt=\"Add movie\"]")).click();
-	  driver.findElement(By.name("name")).clear();
-	  driver.findElement(By.name("name")).sendKeys("Test");
-	  driver.findElement(By.name("aka")).clear();
-	  driver.findElement(By.name("aka")).sendKeys("sdfh sdfg sazgh");
-	  driver.findElement(By.name("year")).clear();
-	  driver.findElement(By.name("year")).sendKeys("2016");
-	  driver.findElement(By.name("duration")).clear();
-	  driver.findElement(By.name("duration")).sendKeys("90");
-	  driver.findElement(By.name("rating")).clear();
-	  driver.findElement(By.name("rating")).sendKeys("1");
-	  driver.findElement(By.id("cover")).clear();
-	  driver.findElement(By.id("cover")).sendKeys("C:\\Users\\Lenovo\\Desktop\\test.jpg");
-	  driver.findElement(By.id("submit")).click();
-	  logout();
-  }
-
   private void goToMainPage() {
 		driver.get(baseUrl + "/php4dvd/");
   }
