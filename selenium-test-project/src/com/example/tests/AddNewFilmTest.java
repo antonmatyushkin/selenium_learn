@@ -5,8 +5,11 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+<<<<<<< HEAD:selenium-test-project/src/com/example/tests/AddNewFilmTest.java
 import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
+=======
+>>>>>>> cd023b331e51ef4e55af7c6a3ac42a8c45a7fe14:selenium-test-project/src/com/example/tests/Add_new_film.java
 
 public class AddNewFilmTest {
   private WebDriver driver;
@@ -22,9 +25,19 @@ public class AddNewFilmTest {
   }
 
   @Test
+<<<<<<< HEAD:selenium-test-project/src/com/example/tests/AddNewFilmTest.java
   public void addNewFilmTest() {
 	  goToMainPage();
 	  loginAs("admin", "admin");
+=======
+  public void testAddNewFilm() throws Exception {
+	  driver.get(baseUrl + "/php4dvd/");
+	  driver.findElement(By.id("username")).clear();
+	  driver.findElement(By.id("username")).sendKeys("admin");
+	  driver.findElement(By.name("password")).clear();
+	  driver.findElement(By.name("password")).sendKeys("admin");
+	  driver.findElement(By.name("submit")).click();
+>>>>>>> cd023b331e51ef4e55af7c6a3ac42a8c45a7fe14:selenium-test-project/src/com/example/tests/Add_new_film.java
 	  driver.findElement(By.cssSelector("img[alt=\"Add movie\"]")).click();
 	  driver.findElement(By.name("name")).clear();
 	  driver.findElement(By.name("name")).sendKeys("Test");
@@ -54,6 +67,7 @@ public class AddNewFilmTest {
     driver.findElement(By.name("submit")).click();
   }
 
+<<<<<<< HEAD:selenium-test-project/src/com/example/tests/AddNewFilmTest.java
   public void addNewUser(String username, String email, String password) {
 	  driver.findElement(By.id("username")).clear();
 	  driver.findElement(By.id("username")).sendKeys(username);
@@ -76,6 +90,8 @@ public class AddNewFilmTest {
 	driver.switchTo().alert().accept();
   }
 
+=======
+>>>>>>> cd023b331e51ef4e55af7c6a3ac42a8c45a7fe14:selenium-test-project/src/com/example/tests/Add_new_film.java
   @After
   public void tearDown() throws Exception {
     driver.quit();

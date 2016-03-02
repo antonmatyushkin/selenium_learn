@@ -40,6 +40,7 @@ public class AddNewUserTest {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys(password);
     driver.findElement(By.name("submit")).click();
+<<<<<<< HEAD:selenium-test-project/src/com/example/tests/AddNewUserTest.java
   }
 
   public void addNewUser(String username, String email, String password) {
@@ -64,6 +65,13 @@ public class AddNewUserTest {
 	driver.switchTo().alert().accept();
   }
 
+=======
+    driver.findElement(By.linkText("Log out")).click();
+    assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to log out[\\s\\S]$"));
+//    driver.switchTo().alert().accept();
+  }
+
+>>>>>>> cd023b331e51ef4e55af7c6a3ac42a8c45a7fe14:selenium-test-project/src/com/example/tests/LoginPhp4dvd.java
   @After
   public void tearDown() throws Exception {
     driver.quit();
