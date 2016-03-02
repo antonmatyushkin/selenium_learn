@@ -4,13 +4,13 @@ import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.firefox.FirefoxDriver;
 // import org.openqa.selenium.ie.InternetExplorerDriver;
 // import org.openqa.selenium.chrome.ChromeDriver;
 // import org.openqa.selenium.opera.OperaDriver;
-import org.openqa.selenium.support.ui.Select;
 
-public class Login {
+public class LoginTest {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
