@@ -25,7 +25,11 @@ public class AddNewUserTest {
 	goToMainPage();
 	loginAs("admin", "admin");
     goToUserManagmentPage();
-    addNewUser("tester", "test@test.ru", "123456");
+    //addNewUser("tester", "test@test.ru", "123456");
+    addNewUser("", "", "");
+    //assertTrue("Не заполнены обязательные поля!", fieldIsNotRequired());
+    assertTrue("Пользователь не создан!", findCreatedUser());
+    assertFalse("Пользователь уже существует!", duplicateToCreatedUser());
     logout();
   }
   
@@ -61,6 +65,18 @@ public class AddNewUserTest {
   public void logout() {
 	driver.findElement(By.linkText("Log out")).click();
 	driver.switchTo().alert().accept();
+  }
+/* 
+  public boolean fieldIsNotRequired() {
+	return driver.findElements(By.name("username")).get(0).getText("This field is required");
+  }
+*/
+  private boolean findCreatedUser() {
+	return driver.findElements(By.linkText("tester")).size() > 0;
+  }
+  
+  private boolean duplicateToCreatedUser() {
+	return driver.findElements(By.className("error")).size() > 0;
   }
 
   @After
