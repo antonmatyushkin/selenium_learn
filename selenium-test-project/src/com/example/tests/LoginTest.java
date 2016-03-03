@@ -16,7 +16,7 @@ public class LoginTest {
   public void setUp() throws Exception {
 	driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
     baseUrl = "http://localhost";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
+    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
   }
 
   @Test
@@ -24,6 +24,7 @@ public class LoginTest {
     goToMainPage();
     loginAs("admin", "admin");
     logout();
+    assertTrue("Отсутствует форма логина!", isOnLoginPage());
   }
   
   private void goToMainPage() {
@@ -41,6 +42,10 @@ public class LoginTest {
   public void logout() {
 	driver.findElement(By.linkText("Log out")).click();
 	driver.switchTo().alert().accept();
+  }
+  
+  private boolean isOnLoginPage() {
+		return driver.findElements(By.id("loginform")).size() > 0;
   }
 
   @After
