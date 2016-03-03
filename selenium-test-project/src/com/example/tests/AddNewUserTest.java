@@ -66,7 +66,7 @@ public class AddNewUserTest {
 	driver.findElement(By.linkText("Log out")).click();
 	driver.switchTo().alert().accept();
   }
-/* 
+/*//¬ данном методе не получаетс€ определить getText! 
   public boolean fieldIsNotRequired() {
 	return driver.findElements(By.name("username")).get(0).getText("This field is required");
   }
