@@ -4,17 +4,12 @@ import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.support.ui.Select;
-<<<<<<< HEAD:selenium-test-project/src/com/example/tests/AddNewFilmTest.java
 import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
-=======
->>>>>>> cd023b331e51ef4e55af7c6a3ac42a8c45a7fe14:selenium-test-project/src/com/example/tests/Add_new_film.java
 
 public class AddNewFilmTest {
   private WebDriver driver;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @Before
@@ -25,33 +20,11 @@ public class AddNewFilmTest {
   }
 
   @Test
-<<<<<<< HEAD:selenium-test-project/src/com/example/tests/AddNewFilmTest.java
-  public void addNewFilmTest() {
+  public void testAddNewFilm() throws Exception {
 	  goToMainPage();
 	  loginAs("admin", "admin");
-=======
-  public void testAddNewFilm() throws Exception {
-	  driver.get(baseUrl + "/php4dvd/");
-	  driver.findElement(By.id("username")).clear();
-	  driver.findElement(By.id("username")).sendKeys("admin");
-	  driver.findElement(By.name("password")).clear();
-	  driver.findElement(By.name("password")).sendKeys("admin");
-	  driver.findElement(By.name("submit")).click();
->>>>>>> cd023b331e51ef4e55af7c6a3ac42a8c45a7fe14:selenium-test-project/src/com/example/tests/Add_new_film.java
-	  driver.findElement(By.cssSelector("img[alt=\"Add movie\"]")).click();
-	  driver.findElement(By.name("name")).clear();
-	  driver.findElement(By.name("name")).sendKeys("Test");
-	  driver.findElement(By.name("aka")).clear();
-	  driver.findElement(By.name("aka")).sendKeys("sdfh sdfg sazgh");
-	  driver.findElement(By.name("year")).clear();
-	  driver.findElement(By.name("year")).sendKeys("2016");
-	  driver.findElement(By.name("duration")).clear();
-	  driver.findElement(By.name("duration")).sendKeys("90");
-	  driver.findElement(By.name("rating")).clear();
-	  driver.findElement(By.name("rating")).sendKeys("1");
-	  driver.findElement(By.id("cover")).clear();
-	  driver.findElement(By.id("cover")).sendKeys("C:\\Users\\Lenovo\\Desktop\\test.jpg");
-	  driver.findElement(By.id("submit")).click();
+	  goToMovieAddPage();
+	  addNewMovieWriteInRequeredFields("Test", "2016", "D:\\Selenium\\test.jpg");
 	  logout();
   }
 
@@ -67,22 +40,18 @@ public class AddNewFilmTest {
     driver.findElement(By.name("submit")).click();
   }
 
-<<<<<<< HEAD:selenium-test-project/src/com/example/tests/AddNewFilmTest.java
-  public void addNewUser(String username, String email, String password) {
-	  driver.findElement(By.id("username")).clear();
-	  driver.findElement(By.id("username")).sendKeys(username);
-	  driver.findElement(By.name("email")).clear();
-	  driver.findElement(By.name("email")).sendKeys(email);
-	  driver.findElement(By.id("password")).clear();
-	  driver.findElement(By.id("password")).sendKeys(password);
-	  driver.findElement(By.id("password2")).clear();
-	  driver.findElement(By.id("password2")).sendKeys(password);
-	  new Select(driver.findElement(By.name("permission"))).selectByVisibleText("Editor");
-	  driver.findElement(By.name("submit")).click();
+  private void goToMovieAddPage() {
+	  driver.findElement(By.cssSelector("img[alt=\"Add movie\"]")).click();
 }
-
-  public void goToUserManagmentPage() {
-	  driver.findElement(By.linkText("User management")).click();
+  
+  private void addNewMovieWriteInRequeredFields(String movieName, String year, String localPathToCover) {
+	  driver.findElement(By.name("name")).clear();
+	  driver.findElement(By.name("name")).sendKeys(movieName);
+	  driver.findElement(By.name("year")).clear();
+	  driver.findElement(By.name("year")).sendKeys(year);
+	  driver.findElement(By.id("cover")).clear();
+	  driver.findElement(By.id("cover")).sendKeys(localPathToCover);
+	  driver.findElement(By.id("submit")).click();
 }
   
   public void logout() {
@@ -90,47 +59,11 @@ public class AddNewFilmTest {
 	driver.switchTo().alert().accept();
   }
 
-=======
->>>>>>> cd023b331e51ef4e55af7c6a3ac42a8c45a7fe14:selenium-test-project/src/com/example/tests/Add_new_film.java
   @After
   public void tearDown() throws Exception {
-    driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
       fail(verificationErrorString);
-    }
-  }
-
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
     }
   }
 }

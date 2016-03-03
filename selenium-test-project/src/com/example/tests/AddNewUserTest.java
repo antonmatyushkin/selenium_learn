@@ -11,7 +11,6 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 public class AddNewUserTest {
   private WebDriver driver;
   private String baseUrl;
-  private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @Before
@@ -40,7 +39,6 @@ public class AddNewUserTest {
     driver.findElement(By.name("password")).clear();
     driver.findElement(By.name("password")).sendKeys(password);
     driver.findElement(By.name("submit")).click();
-<<<<<<< HEAD:selenium-test-project/src/com/example/tests/AddNewUserTest.java
   }
 
   public void addNewUser(String username, String email, String password) {
@@ -65,52 +63,11 @@ public class AddNewUserTest {
 	driver.switchTo().alert().accept();
   }
 
-=======
-    driver.findElement(By.linkText("Log out")).click();
-    assertTrue(closeAlertAndGetItsText().matches("^Are you sure you want to log out[\\s\\S]$"));
-//    driver.switchTo().alert().accept();
-  }
-
->>>>>>> cd023b331e51ef4e55af7c6a3ac42a8c45a7fe14:selenium-test-project/src/com/example/tests/LoginPhp4dvd.java
   @After
   public void tearDown() throws Exception {
-    driver.quit();
     String verificationErrorString = verificationErrors.toString();
     if (!"".equals(verificationErrorString)) {
       fail(verificationErrorString);
-    }
-  }
-
-  private boolean isElementPresent(By by) {
-    try {
-      driver.findElement(by);
-      return true;
-    } catch (NoSuchElementException e) {
-      return false;
-    }
-  }
-
-  private boolean isAlertPresent() {
-    try {
-      driver.switchTo().alert();
-      return true;
-    } catch (NoAlertPresentException e) {
-      return false;
-    }
-  }
-
-  private String closeAlertAndGetItsText() {
-    try {
-      Alert alert = driver.switchTo().alert();
-      String alertText = alert.getText();
-      if (acceptNextAlert) {
-        alert.accept();
-      } else {
-        alert.dismiss();
-      }
-      return alertText;
-    } finally {
-      acceptNextAlert = true;
     }
   }
 }
