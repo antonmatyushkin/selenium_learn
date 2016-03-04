@@ -3,21 +3,29 @@ package com.example.tests;
 import org.junit.*;
 import static org.junit.Assert.*;
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
+import java.util.concurrent.TimeUnit;
 import org.openqa.selenium.*;
 import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import com.example.pages.InternalPage;
+import com.example.pages.LoginPage;
 
 public class LoginTest {
   private WebDriver driver;
   private WebDriverWait wait;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
+  private LoginPage loginPage;
+  private InternalPage internalPage;
+  
 
   @Before
   public void setUp() throws Exception {
 	driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
-	wait = new WebDriverWait(driver, 10);
+	driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+	wait = new WebDriverWait(driver, 10); 
     baseUrl = "http://localhost";
   }
 
@@ -26,32 +34,28 @@ public class LoginTest {
     goToMainPage();
     loginAs("admin", "admin");
     logout();
-    assertTrue("Отсутствует форма логина!", isOnLoginPage());
+    assertTrue("Отсутствует форма логина!", loginPage.isOnLoginPage());
   }
   
   private void goToMainPage() {
-		driver.get(baseUrl + "/php4dvd/");
+	driver.get(baseUrl + "/php4dvd/");
+	loginPage = PageFactory.initElements(driver, LoginPage.class);
+	internalPage = PageFactory.initElements(driver, InternalPage.class);
   }
   
   private void loginAs(String username, String password) {
-	WebElement userNameField = wait.until(visibilityOfElementLocated(By.id("username")));
-	userNameField.clear();
-    userNameField.sendKeys(username);
-    WebElement passwordField = wait.until(visibilityOfElementLocated(By.name("password")));
-	passwordField.clear();
-    passwordField.sendKeys(password);
-    wait.until(visibilityOfElementLocated(By.name("submit"))).click();
+	loginPage.userNameField.clear();
+	loginPage.userNameField.sendKeys(username);
+	loginPage.passwordField.clear();
+	loginPage.passwordField.sendKeys(password);
+    loginPage.loginButton.click();
   }
 
   public void logout() {
-	wait.until(visibilityOfElementLocated(By.linkText("Log out"))).click();
+	internalPage.menuLogoutLink.click();
 	wait.until(alertIsPresent()).accept();
   }
   
-  private boolean isOnLoginPage() {
-		return driver.findElements(By.id("loginform")).size() > 0;
-  }
-
   @After
   public void tearDown() throws Exception {
     String verificationErrorString = verificationErrors.toString();
