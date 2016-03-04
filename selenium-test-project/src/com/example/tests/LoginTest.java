@@ -1,22 +1,24 @@
 package com.example.tests;
 
-import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import org.openqa.selenium.*;
 import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginTest {
   private WebDriver driver;
+  private WebDriverWait wait;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @Before
   public void setUp() throws Exception {
 	driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
+	wait = new WebDriverWait(driver, 10);
     baseUrl = "http://localhost";
-    driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
   }
 
   @Test
@@ -32,16 +34,18 @@ public class LoginTest {
   }
   
   private void loginAs(String username, String password) {
-	driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys(username);
-    driver.findElement(By.name("password")).clear();
-    driver.findElement(By.name("password")).sendKeys(password);
-    driver.findElement(By.name("submit")).click();
+	WebElement userNameField = wait.until(visibilityOfElementLocated(By.id("username")));
+	userNameField.clear();
+    userNameField.sendKeys(username);
+    WebElement passwordField = wait.until(visibilityOfElementLocated(By.name("password")));
+	passwordField.clear();
+    passwordField.sendKeys(password);
+    wait.until(visibilityOfElementLocated(By.name("submit"))).click();
   }
 
   public void logout() {
-	driver.findElement(By.linkText("Log out")).click();
-	driver.switchTo().alert().accept();
+	wait.until(visibilityOfElementLocated(By.linkText("Log out"))).click();
+	wait.until(alertIsPresent()).accept();
   }
   
   private boolean isOnLoginPage() {
