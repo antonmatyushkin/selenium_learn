@@ -1,23 +1,26 @@
 package com.example.tests;
 
-import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class AddNewUserTest {
   private WebDriver driver;
+  private WebDriverWait wait;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @Before
   public void setUp() throws Exception {
 	driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
+	wait = new WebDriverWait(driver, 10);
     baseUrl = "http://localhost";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
@@ -36,33 +39,39 @@ public class AddNewUserTest {
   }
   
   private void loginAs(String username, String password) {
-	driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys(username);
-    driver.findElement(By.name("password")).clear();
-    driver.findElement(By.name("password")).sendKeys(password);
-    driver.findElement(By.name("submit")).click();
+	  WebElement userNameField = wait.until(visibilityOfElementLocated(By.id("username")));
+	  userNameField.clear();
+	  userNameField.sendKeys(username);
+	  WebElement passwordField = wait.until(visibilityOfElementLocated(By.name("password")));
+	  passwordField.clear();
+	  passwordField.sendKeys(password);
+	  wait.until(visibilityOfElementLocated(By.name("submit"))).click();
   }
 
   public void addNewUser(String username, String email, String password) {
-	  driver.findElement(By.id("username")).clear();
-	  driver.findElement(By.id("username")).sendKeys(username);
-	  driver.findElement(By.name("email")).clear();
-	  driver.findElement(By.name("email")).sendKeys(email);
-	  driver.findElement(By.id("password")).clear();
-	  driver.findElement(By.id("password")).sendKeys(password);
-	  driver.findElement(By.id("password2")).clear();
-	  driver.findElement(By.id("password2")).sendKeys(password);
+	  WebElement userNameField = wait.until(visibilityOfElementLocated(By.id("username")));
+	  userNameField.clear();
+	  userNameField.sendKeys(username);
+	  WebElement emailField = wait.until(visibilityOfElementLocated(By.name("email")));
+	  emailField.clear();
+	  emailField.sendKeys(email);
+	  WebElement passwordField = wait.until(visibilityOfElementLocated(By.name("password")));
+	  passwordField.clear();
+	  passwordField.sendKeys(password);
+	  WebElement passwordAgainField = wait.until(visibilityOfElementLocated(By.name("password2")));
+	  passwordAgainField.clear();
+	  passwordAgainField.sendKeys(password);
 	  new Select(driver.findElement(By.name("permission"))).selectByVisibleText("Editor");
-	  driver.findElement(By.name("submit")).click();
-}
+	  wait.until(visibilityOfElementLocated(By.name("submit"))).click();
+  }
 
   public void goToUserManagmentPage() {
 	  driver.findElement(By.linkText("User management")).click();
-}
+  }
   
   public void logout() {
-	driver.findElement(By.linkText("Log out")).click();
-	driver.switchTo().alert().accept();
+	  wait.until(visibilityOfElementLocated(By.linkText("Log out"))).click();
+	  wait.until(alertIsPresent()).accept();
   }
 
   private boolean findCreatedUser() {

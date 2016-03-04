@@ -1,22 +1,24 @@
 package com.example.tests;
 
-import java.util.concurrent.TimeUnit;
 import org.junit.*;
 import static org.junit.Assert.*;
+import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 import org.openqa.selenium.*;
 import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class AddNewFilmTest {
   private WebDriver driver;
+  private WebDriverWait wait;
   private String baseUrl;
   private StringBuffer verificationErrors = new StringBuffer();
 
   @Before
   public void setUp() throws Exception {
 	driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
+	wait = new WebDriverWait(driver, 10);
     baseUrl = "http://localhost";
-    driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
   @Test
@@ -33,30 +35,35 @@ public class AddNewFilmTest {
   }
   
   private void loginAs(String username, String password) {
-	driver.findElement(By.id("username")).clear();
-    driver.findElement(By.id("username")).sendKeys(username);
-    driver.findElement(By.name("password")).clear();
-    driver.findElement(By.name("password")).sendKeys(password);
-    driver.findElement(By.name("submit")).click();
+		WebElement userNameField = wait.until(visibilityOfElementLocated(By.id("username")));
+		userNameField.clear();
+	    userNameField.sendKeys(username);
+	    WebElement passwordField = wait.until(visibilityOfElementLocated(By.name("password")));
+		passwordField.clear();
+	    passwordField.sendKeys(password);
+	    wait.until(visibilityOfElementLocated(By.name("submit"))).click();
   }
 
   private void goToMovieAddPage() {
 	  driver.findElement(By.cssSelector("img[alt=\"Add movie\"]")).click();
-}
+  }
   
   private void addNewMovieWriteInRequeredFields(String movieName, String year, String localPathToCover) {
-	  driver.findElement(By.name("name")).clear();
-	  driver.findElement(By.name("name")).sendKeys(movieName);
-	  driver.findElement(By.name("year")).clear();
-	  driver.findElement(By.name("year")).sendKeys(year);
-	  driver.findElement(By.id("cover")).clear();
-	  driver.findElement(By.id("cover")).sendKeys(localPathToCover);
-	  driver.findElement(By.id("submit")).click();
-}
+	WebElement movieNameField = wait.until(visibilityOfElementLocated(By.name("name")));
+	movieNameField.clear();
+	movieNameField.sendKeys(movieName);
+	WebElement movieYearFieald = wait.until(visibilityOfElementLocated(By.name("year")));
+	movieYearFieald.clear();
+	movieYearFieald.sendKeys(year);
+	WebElement movieCoverField = wait.until(visibilityOfElementLocated(By.id("cover")));
+	movieCoverField.clear();
+	movieCoverField.sendKeys(localPathToCover);
+	wait.until(visibilityOfElementLocated(By.id("submit")));
+  }
   
   public void logout() {
-	driver.findElement(By.linkText("Log out")).click();
-	driver.switchTo().alert().accept();
+	  wait.until(visibilityOfElementLocated(By.linkText("Log out"))).click();
+	  wait.until(alertIsPresent()).accept();
   }
 
   @After
