@@ -9,6 +9,7 @@ import ru.esteru.selenium.factory.WebDriverFactory;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import com.example.pages.InternalPage;
 import com.example.pages.LoginPage;
 

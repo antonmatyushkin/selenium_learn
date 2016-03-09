@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 
 public class LoginPage extends AnyPage {
 	
-	@FindBy(id = "loginForm")
+	@FindBy(id = "loginform")
 	public WebElement loginForm;
 	
 	@FindBy(id = "username")
