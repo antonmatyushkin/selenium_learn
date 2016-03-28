@@ -10,6 +10,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import com.example.pages.AnyPage;
 import com.example.pages.InternalPage;
 import com.example.pages.LoginPage;
 
@@ -20,7 +21,7 @@ public class LoginTest {
   private StringBuffer verificationErrors = new StringBuffer();
   private LoginPage loginPage;
   private InternalPage internalPage;
-  
+  private AnyPage anyPage;
 
   @Before
   public void setUp() throws Exception {
@@ -42,6 +43,7 @@ public class LoginTest {
 	driver.get(baseUrl + "/php4dvd/");
 	loginPage = PageFactory.initElements(driver, LoginPage.class);
 	internalPage = PageFactory.initElements(driver, InternalPage.class);
+	anyPage = PageFactory.initElements(driver, AnyPage.class);
   }
   
   private void loginAs(String username, String password) {
@@ -50,6 +52,7 @@ public class LoginTest {
 	loginPage.passwordField.clear();
 	loginPage.passwordField.sendKeys(password);
     loginPage.loginButton.click();
+    anyPage.programLanguageNed.click();
   }
 
   public void logout() {

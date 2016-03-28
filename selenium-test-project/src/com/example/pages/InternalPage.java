@@ -5,15 +5,15 @@ import org.openqa.selenium.support.FindBy;
 
 public class InternalPage extends AnyPage {
 
-	@FindBy(linkText = "Home")
+	@FindBy(xpath = "//a[@href='http://localhost/php4dvd/']")
 	public WebElement menuHomeLink;
 	
-	@FindBy(linkText = "My profile")
+	@FindBy(xpath = "//a[@href='http://localhost/php4dvd/?go=profile']")
 	public WebElement menuMyProfileLink;
 	
-	@FindBy(linkText = "User managment")
+	@FindBy(xpath = "//a[@href='http://localhost/php4dvd/?go=users']")
 	public WebElement menuUserManagmentLink;
 
-	@FindBy(linkText = "Log out")
+	@FindBy(xpath = "//a[@href='http://localhost/php4dvd/?logout']")
 	public WebElement menuLogoutLink;
 }
