@@ -2,7 +2,6 @@ package ru.esteru.selenium.factory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-
 import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;

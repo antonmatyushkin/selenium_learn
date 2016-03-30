@@ -16,14 +16,15 @@ public class EditMovie {
 	  private String baseUrl;
 	  private StringBuffer verificationErrors = new StringBuffer();
 	  private MovieListPage movieListPage;
-
+	  
 	  @Before
 	  public void setUp() throws Exception {
-		  //driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
-		  driver = WebDriverFactory.getDriver(DesiredCapabilities.chrome());
+		  driver = WebDriverFactory.getDriver(DesiredCapabilities.firefox());
+		  //driver = WebDriverFactory.getDriver(DesiredCapabilities.chrome());
 		  driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
 		  wait = new WebDriverWait(driver, 10); 
 		  baseUrl = "http://localhost";
+		  movieListPage = new MovieListPage(driver);
 	  }
 
 	  @Test
@@ -31,7 +32,6 @@ public class EditMovie {
 		  goToMainPage();
 		  loginAs("admin", "admin");
 		  goToMovie();
-		  assertTrue("Отсутствует форма логина!", movieListPage.isOnMoviePage());
 		  logout();
 	  }
 
@@ -49,8 +49,8 @@ public class EditMovie {
 		    wait.until(visibilityOfElementLocated(By.name("submit"))).click();
 	  }
 
-	  private void goToMovie() {
-		  movieListPage.linksToMovies.get(1).click();
+	  private void goToMovie() throws Exception {
+		  movieListPage.linksToMovies.get(0).click();
 	  }
 	  
 	  public void logout() {
@@ -60,8 +60,7 @@ public class EditMovie {
 
 	  @After
 	  public void tearDown() throws Exception {
-		//driver.quit();
-	    String verificationErrorString = verificationErrors.toString();
+		String verificationErrorString = verificationErrors.toString();
 	    if (!"".equals(verificationErrorString)) {
 	      fail(verificationErrorString);
 	    }
