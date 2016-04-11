@@ -14,7 +14,6 @@ public class AddNewUserTest {
   private WebDriver driver;
   private WebDriverWait wait;
   private String baseUrl;
-  private StringBuffer verificationErrors = new StringBuffer();
 
   @Before
   public void setUp() throws Exception {
@@ -80,13 +79,5 @@ public class AddNewUserTest {
   
   private boolean duplicateToCreatedUser() {
 	return driver.findElements(By.className("error")).size() > 0;
-  }
-
-  @After
-  public void tearDown() throws Exception {
-    String verificationErrorString = verificationErrors.toString();
-    if (!"".equals(verificationErrorString)) {
-      fail(verificationErrorString);
-    }
   }
 }

@@ -12,9 +12,17 @@ public class MovieListPage extends InternalPage {
     
     public MovieListPage(WebDriver driver) {
         PageFactory.initElements(driver, this);
-        this.driver = driver;
+        this.setDriver(driver);
     }
 	
+	public WebDriver getDriver() {
+		return driver;
+	}
+
+	public void setDriver(WebDriver driver) {
+		this.driver = driver;
+	}
+
 	@FindBy(xpath = "//div[@id='results']//img")
 	public List<WebElement> linksToMovies;
 	
