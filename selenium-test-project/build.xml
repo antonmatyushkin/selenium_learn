@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="selenium-test-project">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="D:/eclipse/"/>
+    <property name="junit.output.dir" value="junit"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
+    <path id="selenium.userclasspath">
+        <pathelement location="../../../eclipse/selenium-server-standalone-2.51.0.jar"/>
+    </path>
+    <path id="TestNG.libraryclasspath">
+        <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.10.201512240000/lib/testng.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.10.201512240000/lib/jcommander.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.10.201512240000/lib/bsh-2.0b4.jar"/>
+        <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.10.201512240000/lib/snakeyaml.jar"/>
+    </path>
+    <path id="selenium-test-project.classpath">
+        <pathelement location="bin"/>
+        <path refid="selenium.userclasspath"/>
+        <path refid="TestNG.libraryclasspath"/>
+    </path>
+    <path id="run.AddNewUserTest.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.Add_new_film.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.Add_new_user.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <path id="run.LoginPhp4dvd.bootclasspath">
+        <fileset dir="${java.home}/lib" includes="*.jar"/>
+        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="selenium-test-project.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target name="AddNewUserTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.tests.AddNewUserTest" todir="${junit.output.dir}"/>
+            <classpath refid="selenium-test-project.classpath"/>
+            <bootclasspath>
+                <path refid="run.AddNewUserTest.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="Add_new_film">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.tests.Add_new_film" todir="${junit.output.dir}"/>
+            <classpath refid="selenium-test-project.classpath"/>
+            <bootclasspath>
+                <path refid="run.Add_new_film.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="Add_new_user">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.tests.Add_new_user" todir="${junit.output.dir}"/>
+            <classpath refid="selenium-test-project.classpath"/>
+            <bootclasspath>
+                <path refid="run.Add_new_user.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="LoginPhp4dvd">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="com.example.tests.LoginPhp4dvd" todir="${junit.output.dir}"/>
+            <classpath refid="selenium-test-project.classpath"/>
+            <bootclasspath>
+                <path refid="run.LoginPhp4dvd.bootclasspath"/>
+            </bootclasspath>
+        </junit>
+    </target>
+    <target name="junitreport">
+        <junitreport todir="${junit.output.dir}">
+            <fileset dir="${junit.output.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${junit.output.dir}"/>
+        </junitreport>
+    </target>
+</project>
