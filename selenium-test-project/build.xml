@@ -24,19 +24,19 @@
         <path refid="selenium.userclasspath"/>
         <path refid="TestNG.libraryclasspath"/>
     </path>
+	<path id="run.LoginTest.bootclasspath">
+		<fileset dir="${java.home}/lib" includes="*.jar"/>
+		<fileset dir="${java.home}/lib/ext" includes="*.jar"/>
+	</path>          	
     <path id="run.AddNewUserTest.bootclasspath">
         <fileset dir="${java.home}/lib" includes="*.jar"/>
         <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
     </path>
-    <path id="run.Add_new_film.bootclasspath">
+    <path id="run.AddNewFilmTest.bootclasspath">
         <fileset dir="${java.home}/lib" includes="*.jar"/>
         <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
     </path>
-    <path id="run.Add_new_user.bootclasspath">
-        <fileset dir="${java.home}/lib" includes="*.jar"/>
-        <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
-    </path>
-    <path id="run.LoginPhp4dvd.bootclasspath">
+    <path id="run.EditMovie.bootclasspath">
         <fileset dir="${java.home}/lib" includes="*.jar"/>
         <fileset dir="${java.home}/lib/ext" includes="*.jar"/>
     </path>
@@ -62,51 +62,24 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target name="AddNewUserTest">
+    <target name="tests" depends="build">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="com.example.tests.AddNewUserTest" todir="${junit.output.dir}"/>
+        	<test name="com.example.tests.LoginTest" todir="${junit.output.dir}"/>
+        	<test name="com.example.tests.AddNewUserTest" todir="${junit.output.dir}"/>
+        	<test name="com.example.tests.AddNewFilmTest" todir="${junit.output.dir}"/>
+        	<test name="com.example.tests.EditMovie" todir="${junit.output.dir}"/>
             <classpath refid="selenium-test-project.classpath"/>
             <bootclasspath>
-                <path refid="run.AddNewUserTest.bootclasspath"/>
+                <path refid="run.LoginTest.bootclasspath"/>
+            	<path refid="run.AddNewUserTest.bootclasspath"/>
+                <path refid="run.AddNewFilmTest.bootclasspath"/>
+            	<path refid="run.EditMovie.bootclasspath"/>
             </bootclasspath>
         </junit>
     </target>
-    <target name="Add_new_film">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="com.example.tests.Add_new_film" todir="${junit.output.dir}"/>
-            <classpath refid="selenium-test-project.classpath"/>
-            <bootclasspath>
-                <path refid="run.Add_new_film.bootclasspath"/>
-            </bootclasspath>
-        </junit>
-    </target>
-    <target name="Add_new_user">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="com.example.tests.Add_new_user" todir="${junit.output.dir}"/>
-            <classpath refid="selenium-test-project.classpath"/>
-            <bootclasspath>
-                <path refid="run.Add_new_user.bootclasspath"/>
-            </bootclasspath>
-        </junit>
-    </target>
-    <target name="LoginPhp4dvd">
-        <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
-            <formatter type="xml"/>
-            <test name="com.example.tests.LoginPhp4dvd" todir="${junit.output.dir}"/>
-            <classpath refid="selenium-test-project.classpath"/>
-            <bootclasspath>
-                <path refid="run.LoginPhp4dvd.bootclasspath"/>
-            </bootclasspath>
-        </junit>
-    </target>
-    <target name="junitreport">
+	<target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
                 <include name="TEST-*.xml"/>
