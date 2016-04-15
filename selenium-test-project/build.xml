@@ -11,7 +11,7 @@
     <property name="target" value="1.7"/>
     <property name="source" value="1.7"/>
     <path id="selenium.userclasspath">
-        <pathelement location="../../../eclipse/selenium-server-standalone-2.51.0.jar"/>
+        <pathelement location="../../../eclipse/selenium-server-standalone-2.53.0.jar"/>
     </path>
     <path id="TestNG.libraryclasspath">
         <pathelement location="${ECLIPSE_HOME}plugins/org.testng.eclipse_6.9.10.201512240000/lib/testng.jar"/>
@@ -62,7 +62,7 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target name="AddNewUserTest">
+    <target name="AddNewUserTest" depends="build">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
@@ -80,11 +80,11 @@
             <test name="com.example.tests.AddNewFilmTest" todir="${junit.output.dir}"/>
             <classpath refid="selenium-test-project.classpath"/>
             <bootclasspath>
-                <path refid="run.Add_new_film.bootclasspath"/>
+                <path refid="run.AddNewFilmTest.bootclasspath"/>
             </bootclasspath>
         </junit>
     </target>
-    <target name="LoginTest">
+    <target name="LoginTest" depends="build">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
@@ -95,7 +95,7 @@
             </bootclasspath>
         </junit>
     </target>
-    <target name="EditMovie">
+    <target name="EditMovie" depends="build">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
@@ -105,7 +105,24 @@
                 <path refid="run.EditMovie.bootclasspath"/>
             </bootclasspath>
         </junit>
-    </target>
+    </target>              	
+  	<target name="all_tests" depends="build">
+		<mkdir dir="${junit.output.dir}"/>
+			<junit fork="yes" printsummary="withOutAndErr">
+				<formatter type="xml"/>
+  	        	<test name="com.example.tests.LoginTest" todir="${junit.output.dir}"/>
+  	        	<test name="com.example.tests.AddNewUserTest" todir="${junit.output.dir}"/>
+  	        	<test name="com.example.tests.AddNewFilmTest" todir="${junit.output.dir}"/>
+  	        	<test name="com.example.tests.EditMovie" todir="${junit.output.dir}"/>
+  	            <classpath refid="selenium-test-project.classpath"/>
+  	            <bootclasspath>
+					<path refid="run.LoginTest.bootclasspath"/>
+  	            	<path refid="run.AddNewUserTest.bootclasspath"/>
+  	            	<path refid="run.AddNewFilmTest.bootclasspath"/>
+  	            	<path refid="run.EditMovie.bootclasspath"/>
+			</bootclasspath>
+		</junit>
+	</target>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
